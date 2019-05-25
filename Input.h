@@ -85,7 +85,8 @@ public:
   void Update();
   // NOT WORKING !!
   // Build and return json for Input
-  String GetJson() const;
+  // String GetJson() const;
+  
   // Return Edge type of state
   // EdgeTypes::EdgeType Edge();
   const int Edge();
