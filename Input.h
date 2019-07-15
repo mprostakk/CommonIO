@@ -29,12 +29,15 @@ private:
   unsigned long last_rising_edge_time;
   unsigned long last_falling_edge_time;
   unsigned long last_state_diff_time;
+
+  void init();
 public:
   /*
   pin   - number of pin
   name  - name used in sending data
   (not working) debug - if true, all errors with log on serial port 
   */
+  Input(const int pin);
   Input(const int pin, const String name);
   // Set divider for encoder
   void setDivider(int divider);

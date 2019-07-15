@@ -1,18 +1,35 @@
 #include "Arduino.h"
 #include "Output.h"
 
-Output::Output(const int pin, const String name, bool debug = false) 
-    : pin(pin)
-    , name(name)
-    , is_busy(false)
-    , is_millis(true)
-    , debug(debug)
+void Output::init()
 {
+    is_millis = true;
+    is_busy = false;
     state = false;
     lastTimeOn = lastTimeOff = millis();
     amountOfTime = 0;
     counter = 0;
     pinMode(pin, OUTPUT);
+}
+
+Output::Output(const int pin) : pin(pin), name("")
+{
+    debug = false;
+    init();
+}
+
+Output::Output(const int pin, bool debug) : pin(pin), name("")
+{
+    this->debug = debug;
+    init();
+}
+
+Output::Output(const int pin, bool debug, const String name) 
+    : pin(pin)
+    , name(name)
+{
+    this->debug = debug;
+    init();
 }
 
 void Output::SetHigh()
@@ -85,7 +102,7 @@ void Output::OnForMillis(unsigned long amountOfTime)
     {
         Serial.println(name + String(": Tried to use OnForMillis while set to HIGH"));
     }
-    if(is_busy)
+    if(is_busy && debug)
         Serial.println(name + String(" is busy."));
 
     SetHigh();
@@ -101,7 +118,7 @@ void Output::OffForMillis(unsigned long amountOfTime)
     {
         Serial.println(name + String(": Tried to use OffForMillis while set to LOW"));
     }
-    if(is_busy)
+    if(is_busy && debug)
         Serial.println(name + String(" is busy."));
 
     SetLow();
@@ -117,7 +134,7 @@ void Output::OnForMicros(unsigned long amountOfTime)
     {
         Serial.println(name + String(": Tried to use OnForMicros while set to HIGH"));
     }
-    if(is_busy)
+    if(is_busy && debug)
         Serial.println(name + String(" is busy."));
 
     SetLow();
@@ -133,7 +150,7 @@ void Output::OffForMicros(unsigned long amountOfTime)
     {
         Serial.println(name + String(": Tried to use OffForMillis while set to LOW"));
     }
-    if(is_busy)
+    if(is_busy && debug)
         Serial.println(name + String(" is busy."));
     
     SetLow();

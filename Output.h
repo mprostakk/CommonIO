@@ -21,13 +21,17 @@ private:
 
   void SetHigh();
   void SetLow();
+
+  void init();
 public:
   /*
   pin   - number of pin
   name  - name used in sending data
   debug - if true, all errors with log on serial port 
   */
-  Output(const int pin, const String name, bool debug = false);
+  Output(const int pin);
+  Output(const int pin, bool debug);
+  Output(const int pin, bool debug, const String name);
   // Print to serial needed variables for debugging
   void Print() const;
   // Check if Output is in use

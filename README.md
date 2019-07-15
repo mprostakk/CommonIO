@@ -10,12 +10,12 @@
 #include <Output.h>
 #include <Execute.h>
 
-Input enc1 = Input(0, "Encoder1");
-Input inp1 = Input(1, "Input1");
+Input enc1 = Input(0);
+Input inp1 = Input(1);
 Input inp2 = Input(2, "Input2");
 
-Output out1 = Output(8, "Output1");
-Output out2 = Output(9, "Output2", true);
+Output out1 = Output(8);
+Output out2 = Output(9, true, "Output2");
 
 Execute ex1;
 
@@ -109,41 +109,50 @@ void loop()
 
 ## Constructors
 
+### Input(const int pin)
 ### Input(const int pin, const String name)
 #### Description
 The constructor defines an input object
 #### Syntax
 ```C++ 
+Input(const int pin)
 Input(const int pin, const String name)
 ```
 #### Required parameters
 **pin: ** Arduino pin number that the input is connected to *(byte)*
+##### Optional parameters
 **name: ** Name of input used for debugging
 #### Example
 ```C++
 #include <Input.h>
 
+Input inp1 = Input(3);
 Input inp1 = Input(3, "inp1");
 ```
 
-### Output(const int pin, const String name, bool debug = false)
+### Output(const int pin)
+### Output(const int pin, bool debug)
+### Output(const int pin, bool debug, const String name)
 #### Description
 The constructor defines an output object
 #### Syntax
 ```C++ 
-Output(const int pin, const String name, bool debug = false)
+Output(const int pin)
+Output(const int pin, bool debug)
+Output(const int pin, bool debug, const String name)
 ```
 #### Required parameters
 **pin: ** Arduino pin number that the output is connected to *(byte)*
-**name: ** Name of output used for debugging
 ##### Optional parameters
 **debug: ** If true, prints on serial all usefull information when testing
+**name: ** Name of output used for debugging
 #### Example
 ```C++
 #include <Output.h>
 
+Output out1 = Output(7);
 Output out1 = Output(8, "Output1");
-Output out2 = Output(9, "Output2", true);
+Output out2 = Output(9, true, "Output2");
 ```
 
 ### Execute()

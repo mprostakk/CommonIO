@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "Input.h"
 
-Input::Input(const int pin, const String name = "Wejscie") : name(name), pin(pin)
+void Input::init()
 {
   pinMode(pin, INPUT);
   state_changed = false;
@@ -15,6 +15,16 @@ Input::Input(const int pin, const String name = "Wejscie") : name(name), pin(pin
   debounce_time = 25;
   last_debounce_time = 0;
   last_rising_edge_time = last_falling_edge_time = last_state_diff_time = 0;
+}
+
+Input::Input(const int pin) : name(""), pin(pin)
+{
+  init();
+}
+
+Input::Input(const int pin, const String name) : name(name), pin(pin)
+{ 
+  init();
 }
 
 void Input::setDivider(int divider)

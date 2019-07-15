@@ -1,9 +1,9 @@
 #include <Input.h>
 #include "Arduino.h"
 
-Input enc0 = Input(0, "Encoder0");
-Input enc1 = Input(1, "Encoder1");
-Input enc2 = Input(2, "Encoder2");
+Input enc0 = Input(0);
+Input enc1 = Input(1);
+Input enc2 = Input(2);
 
 void setup()
 {

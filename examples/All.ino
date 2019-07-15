@@ -3,17 +3,12 @@
 #include <Output.h>
 #include <Execute.h>
 
-/*
-Input  Name = Input ( PIN,  NAME )
-Output Name = Output( PIN,  NAME,  DEBUG = false)
-*/
-
-Input enc1 = Input(0, "Encoder1");
-Input inp1 = Input(1, "Input1");
+Input enc1 = Input(0);
+Input inp1 = Input(1);
 Input inp2 = Input(2, "Input2");
 
-Output out1 = Output(8, "Output1");
-Output out2 = Output(9, "Output2", true);
+Output out1 = Output(8);
+Output out2 = Output(9, true, "Output2");
 
 Execute ex1;
 
