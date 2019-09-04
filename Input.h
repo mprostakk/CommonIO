@@ -23,7 +23,9 @@ private:
   bool debounce_last_state;
   bool is_debounce;
   unsigned long last_debounce_time;
-  unsigned long debounce_time;
+  int debounce_edge_tmp;
+  unsigned long debounce_time_rising;
+  unsigned long debounce_time_falling;
   
   // Edge times
   unsigned long last_rising_edge_time;
@@ -66,6 +68,8 @@ public:
   bool IfTriggered() const;
   // Set a debounce time, makes input work on debounce mode
   void SetDebounceTime(unsigned long);
+  // Set a debounce time for a specific edge
+  void SetDebounceTime(unsigned long, const int);
   // Check if input was pressed
   bool IfRising() const; 
   // Check if input was released

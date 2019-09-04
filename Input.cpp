@@ -11,8 +11,8 @@ void Input::init()
   counter_type = CHANGE;
   state_changed_type = CHANGE;
   divider_edge = CHANGE;
-  is_debounce = false;  
-  debounce_time = 25;
+  is_debounce = false;
+  debounce_time_rising = debounce_time_falling = 25;  
   last_debounce_time = 0;
   last_rising_edge_time = last_falling_edge_time = last_state_diff_time = 0;
 }
@@ -56,8 +56,24 @@ void Input::Read()
       last_debounce_time = millis();
     }
 
-    // almost always true
-    if( (millis() - last_debounce_time ) > debounce_time )
+    if(tmp_state != state)
+    {
+      if(state == 0)
+        debounce_edge_tmp = RISING;
+      else
+        debounce_edge_tmp = FALLING;
+    }
+    bool debounce_flag = false;
+    if(debounce_edge_tmp == CHANGE || debounce_edge_tmp == RISING)
+    {
+      debounce_flag = (millis() - last_debounce_time ) > debounce_time_rising;
+    }
+    else if(debounce_edge_tmp == FALLING)
+    {
+      debounce_flag = (millis() - last_debounce_time ) > debounce_time_falling;
+    }
+
+    if(debounce_flag)
     {
       if(tmp_state != state)
       {
@@ -76,7 +92,26 @@ void Input::Read()
 
 void Input::SetDebounceTime(unsigned long debounce_time)
 {
-  this->debounce_time = debounce_time;
+  this->debounce_time_rising = this->debounce_time_falling = debounce_time;
+  is_debounce = true;
+}
+
+void Input::SetDebounceTime(unsigned long debounce_time, const int edgeType)
+{
+  switch (edgeType)
+  {
+  case CHANGE:
+    SetDebounceTime(debounce_time);
+    break;
+  case FALLING:
+    this->debounce_time_falling = debounce_time;
+    break;
+  case RISING:
+    this->debounce_time_rising = debounce_time;
+    break;
+  default:
+    break;
+  }
   is_debounce = true;
 }
 
